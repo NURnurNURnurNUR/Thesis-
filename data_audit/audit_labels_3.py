@@ -1,4 +1,4 @@
-# Step 3
+# Step 3.1
 
 # Purpose:
 #   Read UCSF-PDGM clinical metadata (CSV) and build a lookup table to assign HGG/LGG labels to patients.
@@ -69,7 +69,7 @@ def safe_int(value):
     # Handle values like "4.0"
     try:
         return int(float(s))
-    except ValueError:
+    except (ValueError, TypeError):
         return None
 
 
@@ -97,7 +97,12 @@ def grade_to_hgg_label(who_grade):
     return None, 0, f"unexpected_grade:{who_grade}"
 
 
-def build_clinical_lookup(clinical_csv_path = "UCSF-PDGM-metadata_v5.csv", id_col = "ID", grade_col = "WHO CNS Grade", dx_col = "Final pathologic diagnosis (WHO 2021)"):
+def build_clinical_lookup(
+   clinical_csv_path = "UCSF-PDGM-metadata_v5.csv", 
+   id_col = "ID", 
+   grade_col = "WHO CNS Grade",
+   dx_col = "Final pathologic diagnosis (WHO 2021)",
+):
     """
     Read the clinical metadata CSV and build a dictionary:
       lookup[patient_id] -> {who_grade, label_hgg, diagnosis_text, ...}

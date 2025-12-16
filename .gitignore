@@ -1,1 +1,7 @@
-PKG - UCSF-PDGM Version 5/
+UCSF-PDGM/
+__pycache__/
+.vscode/
+metadata/
+venv_train_py311/
+venv/
+outputs/

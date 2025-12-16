@@ -1,4 +1,4 @@
-# Step 2 
+# Step 2.1
 # This module checks whether, for ONE patient, the MRI modalities (T1, T1c, T2, FLAIR) and the tumor mask are geometrically aligned
 
 # WHY THIS MATTERS:
@@ -66,45 +66,6 @@ def affine_close(A, B, tol):
     return True
 
 
-def find_modality(patient_dir, mod):
-    """
-    Find the NIfTI file for a given modality inside a patient folder.
-
-    We prefer bias-corrected files if present because:
-    - Bias correction usually improves intensity consistency and
-      reduces shading artifacts.
-    - You want to feed consistent preprocessing to the model.
-
-    Expected naming patterns inside UCSF-PDGM:
-      *_T1_bias.nii.gz (preferred)
-      *_T1.nii.gz      (fallback)
-
-    Parameters:
-      patient_dir : str
-        Path to the patient's folder.
-      mod : str
-        One of: "T1", "T1c", "T2", "FLAIR"
-
-    Returns:
-      Full path to the chosen file, or None if not found.
-    """
-    files = os.listdir(patient_dir)
-
-    bias_suffix = f"_{mod}_bias.nii.gz"   # e.g., "_T1_bias.nii.gz"
-    raw_suffix = f"_{mod}.nii.gz"         # e.g., "_T1.nii.gz"
-
-    # First: search for bias-corrected file
-    for f in files:
-        if f.endswith(bias_suffix):
-            return os.path.join(patient_dir, f)
-
-    # Second: fallback to raw file
-    for f in files:
-        if f.endswith(raw_suffix):
-            return os.path.join(patient_dir, f)
-
-    # If neither exists, modality is missing for this patient
-    return None
 
 
 def find_mask(patient_dir):
@@ -140,7 +101,7 @@ def read_geometry(nifti_path):
     img = nib.load(nifti_path)
 
  
-    shape = img.shape
+    shape = img.shape[:3]
 
     # zooms/spacings: e.g., (1.0, 1.0, 1.0)
     # We take only first 3 values (x,y,z). Some NIfTI include time dim.
@@ -152,7 +113,14 @@ def read_geometry(nifti_path):
     return shape, zooms, affine
 
 
-def audit_patient_geometry(patient_dir):
+def audit_patient_geometry(
+    patient_dir,
+    t1_file,
+    t1c_file,
+    t2_file,
+    flair_file,
+    mask_file,
+):
     """
     Perform geometry checks for one patient folder.
 
@@ -177,27 +145,32 @@ def audit_patient_geometry(patient_dir):
         "geometry_ok": 0,
         "notes": "",
         # Store file names (helpful for debugging)
-        "t1_file": "",
-        "t1c_file": "",
-        "t2_file": "",
-        "flair_file": "",
-        "mask_file": "",
+        "t1_file": t1_file or "",
+        "t1c_file": t1c_file or "",
+        "t2_file": t2_file or "",
+        "flair_file": flair_file or "",
+        "mask_file": mask_file or "",
     }
 
-    # Locate each required file in this patient folder
-    t1 = find_modality(patient_dir, "T1")
-    t1c = find_modality(patient_dir, "T1c")
-    t2 = find_modality(patient_dir, "T2")
-    flair = find_modality(patient_dir, "FLAIR")
-    mask = find_mask(patient_dir)
+   # Build full paths from patient_dir + filenames
+    t1_path = os.path.join(patient_dir, t1_file) if t1_file else None
+    t1c_path = os.path.join(patient_dir, t1c_file) if t1c_file else None
+    t2_path = os.path.join(patient_dir, t2_file) if t2_file else None
+    flair_path = os.path.join(patient_dir, flair_file) if flair_file else None
+    mask_path = os.path.join(patient_dir, mask_file) if mask_file else None
 
-    # Track missing files so we can write a helpful note
+    # Check required files exist (strict: all4 + mask)
     missing = []
-    if t1 is None: missing.append("T1")
-    if t1c is None: missing.append("T1c")
-    if t2 is None: missing.append("T2")
-    if flair is None: missing.append("FLAIR")
-    if mask is None: missing.append("MASK")
+    if not t1_path or not os.path.isfile(t1_path):
+        missing.append("T1")
+    if not t1c_path or not os.path.isfile(t1c_path):
+        missing.append("T1c")
+    if not t2_path or not os.path.isfile(t2_path):
+        missing.append("T2")
+    if not flair_path or not os.path.isfile(flair_path):
+        missing.append("FLAIR")
+    if not mask_path or not os.path.isfile(mask_path):
+        missing.append("MASK")
 
     # If anything is missing, we cannot do geometry checks.
     # Return early with "missing:..." note.
@@ -207,21 +180,12 @@ def audit_patient_geometry(patient_dir):
 
     # Mask exists if we reached here
     result["has_mask"] = 1
-
-    # Store chosen file names (not full paths) for debugging
-    result["t1_file"] = os.path.basename(t1)
-    result["t1c_file"] = os.path.basename(t1c)
-    result["t2_file"] = os.path.basename(t2)
-    result["flair_file"] = os.path.basename(flair)
-    result["mask_file"] = os.path.basename(mask)
-
     
     # Geometry checks
     # We use T1c as a reference modality (common in glioma work).
     # Everything else should match T1c geometry if data is aligned.
-    
-
-    ref_shape, ref_zooms, ref_affine = read_geometry(t1c)
+  
+    ref_shape, ref_zooms, ref_affine = read_geometry(t1c_path)
 
     # Read geometry for all modalities and the mask
     shapes = {}
@@ -229,11 +193,11 @@ def audit_patient_geometry(patient_dir):
     affines = {}
 
     for name, path in [
-        ("T1", t1),
-        ("T1c", t1c),
-        ("T2", t2),
-        ("FLAIR", flair),
-        ("MASK", mask),
+        ("T1", t1_path),
+        ("T1c", t1c_path),
+        ("T2", t2_path),
+        ("FLAIR", flair_path),
+        ("MASK", mask_path),
     ]:
         s, z, a = read_geometry(path)
         shapes[name] = s

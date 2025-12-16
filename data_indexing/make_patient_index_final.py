@@ -1,4 +1,4 @@
-# Step 4
+# Step 4 (final)
 # This script creates a final "training-ready" patient index CSV
 #
 # Goal:
@@ -23,15 +23,18 @@ import csv
 
 # 1) Configuration
 
-# BASE_DIR is the folder where this Python file lives.
-# This makes paths work even if the script is run from another folder
-BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+# This script is in: thesis/data_indexing/
+# PROJECT_ROOT becomes: thesis/
+PROJECT_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
+
+# Indices folder for all CSV outputs
+INDICES_DIR = os.path.join(PROJECT_ROOT, "indices")
 
 # Input CSV from step 3 (labels added)
-INPUT_CSV = os.path.join(BASE_DIR, "patient_index_labels.csv")
+INPUT_CSV = os.path.join(INDICES_DIR, "patient_index_labels.csv")
 
 # Output CSV for step 4 (final filtered)
-OUTPUT_CSV = os.path.join(BASE_DIR, "patient_index_final.csv")
+OUTPUT_CSV = os.path.join(INDICES_DIR, "patient_index_final.csv")
 
 
 # 2) Read the input CSV
