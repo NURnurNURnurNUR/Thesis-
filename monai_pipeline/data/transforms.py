@@ -11,8 +11,6 @@ Key idea:
 """
 
 from __future__ import annotations
-from monai.transforms import SpatialPadd
-
 
 import numpy as np
 
@@ -23,17 +21,27 @@ from monai.transforms import (
     EnsureTyped,
     Orientationd,
     Spacingd,
-    ScaleIntensityRanged,
-    NormalizeIntensityd,
+    SpatialPadd,
+    CenterSpatialCropd,
+
+    # 🔹 foreground / normalization
     CropForegroundd,
+    NormalizeIntensityd,
+
+    # 🔹 random patch sampling
     RandCropByPosNegLabeld,
+
+    # 🔹 data augmentation
     RandFlipd,
     RandRotate90d,
     RandShiftIntensityd,
+
+    # 🔹 utility
     LambdaD,
 )
 
-# 1) Convert mask to binary whole-tumor
+
+# 1) Convert mask to binary whole tumor
 
 def _mask_to_binary(mask: np.ndarray) -> np.ndarray:
     """
@@ -126,22 +134,25 @@ def get_train_transforms_2d(
                 image_threshold=0,
                 allow_smaller=True,
             ),
+
+            # IMPORTANT:
+            # Even with allow_smaller=True, some samples can still be smaller than
+            # patch_size due to cropping near borders or small volumes.
+            # SpatialPadd ensures every output patch is exactly (H, W, 1),
+            # so the DataLoader can stack them into batches.
             SpatialPadd(
-               keys=[keys_img, keys_lbl],
-               spatial_size=(patch_size[0], patch_size[1], 1),
-               mode=("constant", "constant"),
+                keys=[keys_img, keys_lbl],
+                spatial_size=(patch_size[0], patch_size[1], 1),
+                mode=("constant", "constant"),
             ),
 
-
             # 3) Simple augmentations (safe for MRI)
-
             RandFlipd(keys=[keys_img, keys_lbl], spatial_axis=0, prob=0.5),
             RandFlipd(keys=[keys_img, keys_lbl], spatial_axis=1, prob=0.5),
             RandRotate90d(keys=[keys_img, keys_lbl], prob=0.3, max_k=3),
             RandShiftIntensityd(keys=keys_img, offsets=0.1, prob=0.3),
 
             # 4) Ensure tensors / correct dtype for PyTorch training
-            
             EnsureTyped(keys=[keys_img, keys_lbl]),
         ]
     )
@@ -152,39 +163,54 @@ def get_val_transforms_2d(
     pixdim: tuple[float, float, float] = (1.0, 1.0, 1.0),
 ) -> Compose:
     """
-    Validation transforms for 2D segmentation.
+    Validation must return SAME-SHAPE tensors so DataLoader can stack them.
 
-    Differences vs training:
-    - No random augmentations
-    - No random cropping by pos/neg
-      (we still do a deterministic crop around tumor foreground for speed)
-
-    Note:
-    Many projects validate on full slices or full volumes.
-    For simplicity and fairness, we keep preprocessing consistent and avoid randomness.
-
-    Returns
-    -------
-    Compose
-        MONAI transform pipeline for validation.
+    We:
+      - load images + label
+      - standardize orientation/spacing
+      - convert label to binary (so it matches training!)
+      - intensity normalize (same approach as training for consistency)
+      - pad up to patch size (so crop never fails)
+      - center-crop a fixed patch (deterministic)
     """
-
     keys_img = "image"
     keys_lbl = "label"
 
+    roi = (patch_size[0], patch_size[1], 1)  # (H, W, depth=1)
+
     return Compose(
         [
+            # Load NIfTI from disk
             LoadImaged(keys=[keys_img, keys_lbl]),
+
+            # Ensure channel-first
+            # - image becomes (4, X, Y, Z)
+            # - label becomes (1, X, Y, Z)
             EnsureChannelFirstd(keys=[keys_img, keys_lbl]),
+
+            # Standardize orientation to RAS (same as training)
             Orientationd(keys=[keys_img, keys_lbl], axcodes="RAS"),
+
+            # Resample to common voxel spacing (same as training)
             Spacingd(
                 keys=[keys_img, keys_lbl],
                 pixdim=pixdim,
                 mode=("bilinear", "nearest"),
             ),
+
+            # Convert mask to binary whole tumor (IMPORTANT: match training)
             LambdaD(keys=keys_lbl, func=_mask_to_binary),
-            CropForegroundd(keys=[keys_img, keys_lbl], source_key=keys_lbl),
+
+            # Intensity normalization (same as training for fair evaluation)
             NormalizeIntensityd(keys=keys_img, nonzero=True, channel_wise=True),
+
+            # Ensure volume is at least roi size so the next crop always works
+            SpatialPadd(keys=[keys_img, keys_lbl], spatial_size=roi),
+
+            # Deterministic crop so every output is exactly (H,W,1)
+            CenterSpatialCropd(keys=[keys_img, keys_lbl], roi_size=roi),
+
+            # Ensure tensors / correct dtype for PyTorch metrics
             EnsureTyped(keys=[keys_img, keys_lbl]),
         ]
     )
