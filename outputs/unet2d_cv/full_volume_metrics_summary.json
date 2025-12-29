@@ -1,0 +1,85 @@
+{
+  "k_folds": 5,
+  "seed": 42,
+  "roi_hw": [
+    128,
+    128
+  ],
+  "pixdim": [
+    1.0,
+    1.0,
+    1.0
+  ],
+  "sw_batch_size": 4,
+  "device": "cuda",
+  "fold_summaries": [
+    {
+      "fold": 0,
+      "n_patients": 65,
+      "mean_dice": 0.8788131577449377,
+      "std_dice_patients_within_fold": 0.08320694311883305,
+      "mean_precision": 0.9357968272499825,
+      "std_precision_patients_within_fold": 0.07841966447094674,
+      "mean_recall_sensitivity": 0.8411792897295635,
+      "std_recall_patients_within_fold": 0.11867304694748909,
+      "mean_specificity": 0.9829594938406114,
+      "std_specificity_patients_within_fold": 0.01566863322424781
+    },
+    {
+      "fold": 1,
+      "n_patients": 64,
+      "mean_dice": 0.8528458169737925,
+      "std_dice_patients_within_fold": 0.07683856253716946,
+      "mean_precision": 0.9348038386166055,
+      "std_precision_patients_within_fold": 0.1019241827543273,
+      "mean_recall_sensitivity": 0.7958479114191459,
+      "std_recall_patients_within_fold": 0.10062599145993983,
+      "mean_specificity": 0.9865507178789188,
+      "std_specificity_patients_within_fold": 0.014905697663167664
+    },
+    {
+      "fold": 2,
+      "n_patients": 64,
+      "mean_dice": 0.8794040645030609,
+      "std_dice_patients_within_fold": 0.11354156167335891,
+      "mean_precision": 0.8944531534312401,
+      "std_precision_patients_within_fold": 0.14804218822459236,
+      "mean_recall_sensitivity": 0.8851310040297812,
+      "std_recall_patients_within_fold": 0.07946193791748493,
+      "mean_specificity": 0.9720119916710135,
+      "std_specificity_patients_within_fold": 0.02335364586721785
+    },
+    {
+      "fold": 3,
+      "n_patients": 64,
+      "mean_dice": 0.8502075861766591,
+      "std_dice_patients_within_fold": 0.13501263835166505,
+      "mean_precision": 0.8877518634278276,
+      "std_precision_patients_within_fold": 0.1871894333936912,
+      "mean_recall_sensitivity": 0.8491073364800954,
+      "std_recall_patients_within_fold": 0.07961979344831407,
+      "mean_specificity": 0.9720877440615248,
+      "std_specificity_patients_within_fold": 0.03931171596719421
+    },
+    {
+      "fold": 4,
+      "n_patients": 64,
+      "mean_dice": 0.8875282539465176,
+      "std_dice_patients_within_fold": 0.07329611614320898,
+      "mean_precision": 0.9198657399541701,
+      "std_precision_patients_within_fold": 0.10770940293635253,
+      "mean_recall_sensitivity": 0.8695482206105691,
+      "std_recall_patients_within_fold": 0.08197603724495733,
+      "mean_specificity": 0.9772765471780214,
+      "std_specificity_patients_within_fold": 0.025571371111807132
+    }
+  ],
+  "mean_dice_over_folds": 0.8697597758689936,
+  "std_dice_over_folds": 0.015225406182522067,
+  "mean_precision_over_folds": 0.9145342845359652,
+  "std_precision_over_folds": 0.020059535732556172,
+  "mean_recall_sensitivity_over_folds": 0.8481627524538311,
+  "std_recall_sensitivity_over_folds": 0.030366077968528905,
+  "mean_specificity_over_folds": 0.978177298926018,
+  "std_specificity_over_folds": 0.005811859923806922
+}

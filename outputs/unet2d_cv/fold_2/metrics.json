@@ -1,0 +1,206 @@
+{
+  "fold": 2,
+  "best_val_dice": 0.5754599571228027,
+  "model_path": "C:\\Users\\Nurma\\Desktop\\thesis\\outputs\\unet2d_cv\\fold_2\\best_model.pt",
+  "elapsed_seconds": 4574.567263841629,
+  "config": {
+    "k_folds": 5,
+    "seed": 42,
+    "patch_size": [
+      128,
+      128
+    ],
+    "num_samples_per_volume": 4,
+    "batch_size": 2,
+    "num_workers": 2,
+    "cache_rate": 0.2,
+    "max_epochs": 30,
+    "lr": 0.001,
+    "weight_decay": 1e-05,
+    "validate_every": 1,
+    "amp": true,
+    "outputs_subdir": "unet2d_cv"
+  },
+  "history": [
+    {
+      "epoch": 1,
+      "train_loss": 0.5061200990579849,
+      "val_dice": 0.463869571685791,
+      "best_val_dice_so_far": 0.463869571685791
+    },
+    {
+      "epoch": 2,
+      "train_loss": 0.22298814021339713,
+      "val_dice": 0.5370903611183167,
+      "best_val_dice_so_far": 0.5370903611183167
+    },
+    {
+      "epoch": 3,
+      "train_loss": 0.20295256589965302,
+      "val_dice": 0.5174400806427002,
+      "best_val_dice_so_far": 0.5370903611183167
+    },
+    {
+      "epoch": 4,
+      "train_loss": 0.18655288721932922,
+      "val_dice": 0.5754599571228027,
+      "best_val_dice_so_far": 0.5754599571228027
+    },
+    {
+      "epoch": 5,
+      "train_loss": NaN,
+      "val_dice": 0.0,
+      "best_val_dice_so_far": 0.5754599571228027
+    },
+    {
+      "epoch": 6,
+      "train_loss": NaN,
+      "val_dice": 0.0,
+      "best_val_dice_so_far": 0.5754599571228027
+    },
+    {
+      "epoch": 7,
+      "train_loss": NaN,
+      "val_dice": 0.0,
+      "best_val_dice_so_far": 0.5754599571228027
+    },
+    {
+      "epoch": 8,
+      "train_loss": NaN,
+      "val_dice": 0.0,
+      "best_val_dice_so_far": 0.5754599571228027
+    },
+    {
+      "epoch": 9,
+      "train_loss": NaN,
+      "val_dice": 0.0,
+      "best_val_dice_so_far": 0.5754599571228027
+    },
+    {
+      "epoch": 10,
+      "train_loss": NaN,
+      "val_dice": 0.0,
+      "best_val_dice_so_far": 0.5754599571228027
+    },
+    {
+      "epoch": 11,
+      "train_loss": NaN,
+      "val_dice": 0.0,
+      "best_val_dice_so_far": 0.5754599571228027
+    },
+    {
+      "epoch": 12,
+      "train_loss": NaN,
+      "val_dice": 0.0,
+      "best_val_dice_so_far": 0.5754599571228027
+    },
+    {
+      "epoch": 13,
+      "train_loss": NaN,
+      "val_dice": 0.0,
+      "best_val_dice_so_far": 0.5754599571228027
+    },
+    {
+      "epoch": 14,
+      "train_loss": NaN,
+      "val_dice": 0.0,
+      "best_val_dice_so_far": 0.5754599571228027
+    },
+    {
+      "epoch": 15,
+      "train_loss": NaN,
+      "val_dice": 0.0,
+      "best_val_dice_so_far": 0.5754599571228027
+    },
+    {
+      "epoch": 16,
+      "train_loss": NaN,
+      "val_dice": 0.0,
+      "best_val_dice_so_far": 0.5754599571228027
+    },
+    {
+      "epoch": 17,
+      "train_loss": NaN,
+      "val_dice": 0.0,
+      "best_val_dice_so_far": 0.5754599571228027
+    },
+    {
+      "epoch": 18,
+      "train_loss": NaN,
+      "val_dice": 0.0,
+      "best_val_dice_so_far": 0.5754599571228027
+    },
+    {
+      "epoch": 19,
+      "train_loss": NaN,
+      "val_dice": 0.0,
+      "best_val_dice_so_far": 0.5754599571228027
+    },
+    {
+      "epoch": 20,
+      "train_loss": NaN,
+      "val_dice": 0.0,
+      "best_val_dice_so_far": 0.5754599571228027
+    },
+    {
+      "epoch": 21,
+      "train_loss": NaN,
+      "val_dice": 0.0,
+      "best_val_dice_so_far": 0.5754599571228027
+    },
+    {
+      "epoch": 22,
+      "train_loss": NaN,
+      "val_dice": 0.0,
+      "best_val_dice_so_far": 0.5754599571228027
+    },
+    {
+      "epoch": 23,
+      "train_loss": NaN,
+      "val_dice": 0.0,
+      "best_val_dice_so_far": 0.5754599571228027
+    },
+    {
+      "epoch": 24,
+      "train_loss": NaN,
+      "val_dice": 0.0,
+      "best_val_dice_so_far": 0.5754599571228027
+    },
+    {
+      "epoch": 25,
+      "train_loss": NaN,
+      "val_dice": 0.0,
+      "best_val_dice_so_far": 0.5754599571228027
+    },
+    {
+      "epoch": 26,
+      "train_loss": NaN,
+      "val_dice": 0.0,
+      "best_val_dice_so_far": 0.5754599571228027
+    },
+    {
+      "epoch": 27,
+      "train_loss": NaN,
+      "val_dice": 0.0,
+      "best_val_dice_so_far": 0.5754599571228027
+    },
+    {
+      "epoch": 28,
+      "train_loss": NaN,
+      "val_dice": 0.0,
+      "best_val_dice_so_far": 0.5754599571228027
+    },
+    {
+      "epoch": 29,
+      "train_loss": NaN,
+      "val_dice": 0.0,
+      "best_val_dice_so_far": 0.5754599571228027
+    },
+    {
+      "epoch": 30,
+      "train_loss": NaN,
+      "val_dice": 0.0,
+      "best_val_dice_so_far": 0.5754599571228027
+    }
+  ]
+}

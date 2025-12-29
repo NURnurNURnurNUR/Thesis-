@@ -1,0 +1,42 @@
+{
+  "k_folds": 5,
+  "seed": 42,
+  "n_patients": 321,
+  "n_features": 45,
+  "features_csv": "outputs\\ml_predmask_features\\features_from_predmask.csv",
+  "out_dir": "outputs\\ml_models_predmask",
+  "label_col": "label_hgg",
+  "summary_by_model": {
+    "logreg": {
+      "mean_roc_auc": 0.961148561057817,
+      "std_roc_auc": 0.01707031865418288,
+      "mean_accuracy": 0.9346153846153846,
+      "std_accuracy": 0.011442913687896052,
+      "mean_precision": 0.9589594676346038,
+      "std_precision": 0.012815209183618332,
+      "mean_recall_sensitivity": 0.9688445251058682,
+      "std_recall_sensitivity": 0.012773125477157098,
+      "mean_f1": 0.9637468445264548,
+      "std_f1": 0.0063849388660388315,
+      "mean_specificity": 0.638095238095238,
+      "std_specificity": 0.10690449676496976
+    },
+    "rf": {
+      "mean_roc_auc": 0.9540748422781089,
+      "std_roc_auc": 0.017385575924731778,
+      "mean_accuracy": 0.9096634615384616,
+      "std_accuracy": 0.01162964769979305,
+      "mean_precision": 0.9219271738309285,
+      "std_precision": 0.011325979793908862,
+      "mean_recall_sensitivity": 0.9826376285541439,
+      "std_recall_sensitivity": 0.011096700554693322,
+      "mean_f1": 0.9512274653451124,
+      "std_f1": 0.0065808785289167004,
+      "mean_specificity": 0.2761904761904762,
+      "std_specificity": 0.06998542122237651
+    }
+  },
+  "best_model": "logreg",
+  "best_mean_auc": 0.961148561057817,
+  "best_model_path": "outputs\\ml_models_predmask\\best_model.joblib"
+}

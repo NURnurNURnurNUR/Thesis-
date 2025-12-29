@@ -1,0 +1,206 @@
+{
+  "fold": 3,
+  "best_val_dice": 0.5334542989730835,
+  "model_path": "C:\\Users\\Nurma\\Desktop\\thesis\\outputs\\unet2d_cv\\fold_3\\best_model.pt",
+  "elapsed_seconds": 4595.091187000275,
+  "config": {
+    "k_folds": 5,
+    "seed": 42,
+    "patch_size": [
+      128,
+      128
+    ],
+    "num_samples_per_volume": 4,
+    "batch_size": 2,
+    "num_workers": 2,
+    "cache_rate": 0.2,
+    "max_epochs": 30,
+    "lr": 0.001,
+    "weight_decay": 1e-05,
+    "validate_every": 1,
+    "amp": true,
+    "outputs_subdir": "unet2d_cv"
+  },
+  "history": [
+    {
+      "epoch": 1,
+      "train_loss": 0.5795881957855336,
+      "val_dice": 0.46398061513900757,
+      "best_val_dice_so_far": 0.46398061513900757
+    },
+    {
+      "epoch": 2,
+      "train_loss": 0.2244994044303894,
+      "val_dice": 0.4069075882434845,
+      "best_val_dice_so_far": 0.46398061513900757
+    },
+    {
+      "epoch": 3,
+      "train_loss": 0.20221643484840096,
+      "val_dice": 0.5334542989730835,
+      "best_val_dice_so_far": 0.5334542989730835
+    },
+    {
+      "epoch": 4,
+      "train_loss": NaN,
+      "val_dice": 0.0,
+      "best_val_dice_so_far": 0.5334542989730835
+    },
+    {
+      "epoch": 5,
+      "train_loss": NaN,
+      "val_dice": 0.0,
+      "best_val_dice_so_far": 0.5334542989730835
+    },
+    {
+      "epoch": 6,
+      "train_loss": NaN,
+      "val_dice": 0.0,
+      "best_val_dice_so_far": 0.5334542989730835
+    },
+    {
+      "epoch": 7,
+      "train_loss": NaN,
+      "val_dice": 0.0,
+      "best_val_dice_so_far": 0.5334542989730835
+    },
+    {
+      "epoch": 8,
+      "train_loss": NaN,
+      "val_dice": 0.0,
+      "best_val_dice_so_far": 0.5334542989730835
+    },
+    {
+      "epoch": 9,
+      "train_loss": NaN,
+      "val_dice": 0.0,
+      "best_val_dice_so_far": 0.5334542989730835
+    },
+    {
+      "epoch": 10,
+      "train_loss": NaN,
+      "val_dice": 0.0,
+      "best_val_dice_so_far": 0.5334542989730835
+    },
+    {
+      "epoch": 11,
+      "train_loss": NaN,
+      "val_dice": 0.0,
+      "best_val_dice_so_far": 0.5334542989730835
+    },
+    {
+      "epoch": 12,
+      "train_loss": NaN,
+      "val_dice": 0.0,
+      "best_val_dice_so_far": 0.5334542989730835
+    },
+    {
+      "epoch": 13,
+      "train_loss": NaN,
+      "val_dice": 0.0,
+      "best_val_dice_so_far": 0.5334542989730835
+    },
+    {
+      "epoch": 14,
+      "train_loss": NaN,
+      "val_dice": 0.0,
+      "best_val_dice_so_far": 0.5334542989730835
+    },
+    {
+      "epoch": 15,
+      "train_loss": NaN,
+      "val_dice": 0.0,
+      "best_val_dice_so_far": 0.5334542989730835
+    },
+    {
+      "epoch": 16,
+      "train_loss": NaN,
+      "val_dice": 0.0,
+      "best_val_dice_so_far": 0.5334542989730835
+    },
+    {
+      "epoch": 17,
+      "train_loss": NaN,
+      "val_dice": 0.0,
+      "best_val_dice_so_far": 0.5334542989730835
+    },
+    {
+      "epoch": 18,
+      "train_loss": NaN,
+      "val_dice": 0.0,
+      "best_val_dice_so_far": 0.5334542989730835
+    },
+    {
+      "epoch": 19,
+      "train_loss": NaN,
+      "val_dice": 0.0,
+      "best_val_dice_so_far": 0.5334542989730835
+    },
+    {
+      "epoch": 20,
+      "train_loss": NaN,
+      "val_dice": 0.0,
+      "best_val_dice_so_far": 0.5334542989730835
+    },
+    {
+      "epoch": 21,
+      "train_loss": NaN,
+      "val_dice": 0.0,
+      "best_val_dice_so_far": 0.5334542989730835
+    },
+    {
+      "epoch": 22,
+      "train_loss": NaN,
+      "val_dice": 0.0,
+      "best_val_dice_so_far": 0.5334542989730835
+    },
+    {
+      "epoch": 23,
+      "train_loss": NaN,
+      "val_dice": 0.0,
+      "best_val_dice_so_far": 0.5334542989730835
+    },
+    {
+      "epoch": 24,
+      "train_loss": NaN,
+      "val_dice": 0.0,
+      "best_val_dice_so_far": 0.5334542989730835
+    },
+    {
+      "epoch": 25,
+      "train_loss": NaN,
+      "val_dice": 0.0,
+      "best_val_dice_so_far": 0.5334542989730835
+    },
+    {
+      "epoch": 26,
+      "train_loss": NaN,
+      "val_dice": 0.0,
+      "best_val_dice_so_far": 0.5334542989730835
+    },
+    {
+      "epoch": 27,
+      "train_loss": NaN,
+      "val_dice": 0.0,
+      "best_val_dice_so_far": 0.5334542989730835
+    },
+    {
+      "epoch": 28,
+      "train_loss": NaN,
+      "val_dice": 0.0,
+      "best_val_dice_so_far": 0.5334542989730835
+    },
+    {
+      "epoch": 29,
+      "train_loss": NaN,
+      "val_dice": 0.0,
+      "best_val_dice_so_far": 0.5334542989730835
+    },
+    {
+      "epoch": 30,
+      "train_loss": NaN,
+      "val_dice": 0.0,
+      "best_val_dice_so_far": 0.5334542989730835
+    }
+  ]
+}

@@ -1,0 +1,24 @@
+{
+  "k_folds": 5,
+  "seed": 42,
+  "roi_hw": [
+    128,
+    128
+  ],
+  "pixdim": [
+    1.0,
+    1.0,
+    1.0
+  ],
+  "sw_batch_size": 4,
+  "fold_mean_full_volume_dice": [
+    0.8788131577449377,
+    0.8528458169737925,
+    0.8794040645030609,
+    0.8502075861766591,
+    0.8875282539465176
+  ],
+  "mean_full_volume_dice_over_folds": 0.8697597758689936,
+  "std_full_volume_dice_over_folds": 0.015225406182522067,
+  "device": "cuda"
+}
